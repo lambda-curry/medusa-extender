@@ -2,6 +2,75 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.3](https://github.com/adrien2p/medusa-extender/compare/v1.7.2...v1.7.3) (2022-06-22)
+
+### [1.7.2](https://github.com/adrien2p/medusa-extender/compare/v1.7.1...v1.7.2) (2022-06-17)
+
+
+### Features
+
+* **enhancement:** Multi-tenancy module ([e939a23](https://github.com/adrien2p/medusa-extender/commits/e939a237c9ffb6eeb0f1ffc98307cf6143745196))
+* **multi-tenancy:** Update the module to be dynamic ([b3271c6](https://github.com/adrien2p/medusa-extender/commits/b3271c6e7838e161d036151470310ca7da34ab26))
+* **multi-tenancy:** Update the module to be dynamic ([058f6a0](https://github.com/adrien2p/medusa-extender/commits/058f6a013b6ff003bc59554ce90256a1bebc476d))
+* Remove pre-defined migration globs in favor of the end user configuration ([097f25e](https://github.com/adrien2p/medusa-extender/commits/097f25edf390dd418a18c0fa96d46f80e5c0d1b9))
+
+
+### Bug Fixes
+
+* Move migration loader in the database loader to ensure migrations order ([bde1563](https://github.com/adrien2p/medusa-extender/commits/bde1563546c2da3f244c90b7063936068cd99834))
+
+### [1.7.1](https://github.com/adrien2p/medusa-extender/compare/v1.7.0...v1.7.1) (2022-05-19)
+
+## [1.7.0](https://github.com/adrien2p/medusa-extender/compare/v1.6.5...v1.7.0) (2022-05-18)
+
+
+### Features
+
+* Improve starters ([5c11ec4](https://github.com/adrien2p/medusa-extender/commits/5c11ec462f4f1d9e052649ad3fd8de974a3d05b6))
+* **integration-tests:** Improve jest config ([a86f096](https://github.com/adrien2p/medusa-extender/commits/a86f0967c474fc0aeb08971e43655fd56ac26f95))
+* **integration-tests:** Setup integration tests ([#85](https://github.com/adrien2p/medusa-extender/issues/85)) ([12ef12f](https://github.com/adrien2p/medusa-extender/commits/12ef12f6f2c915981e69e2657fd372db86714b91))
+
+
+### Bug Fixes
+
+* Middleware management and usage, also allow custom api endpoints ([#89](https://github.com/adrien2p/medusa-extender/issues/89)) ([d4ddb5f](https://github.com/adrien2p/medusa-extender/commits/d4ddb5f9abd2bad60116c8ea26f416e7f4afc5a3))
+
+### [1.6.5](https://github.com/adrien2p/medusa-extender/compare/v1.6.4...v1.6.5) (2022-04-20)
+
+
+### Bug Fixes
+
+* Missing Subscriber decorator export from index ([973e38c](https://github.com/adrien2p/medusa-extender/commits/973e38cf01a5b0b5b6c69ca01e3cb667e05e33be))
+
+### [1.6.4](https://github.com/adrien2p/medusa-extender/compare/v1.6.3...v1.6.4) (2022-04-20)
+
+
+### Features
+
+* Add the Subscriber decorator support ([da12f07](https://github.com/adrien2p/medusa-extender/commits/da12f072b104872498058c4a6eb0a9022c08942a))
+
+### [1.6.3](https://github.com/adrien2p/medusa-extender/compare/v1.6.2...v1.6.3) (2022-04-19)
+
+
+### Bug Fixes
+
+* **cli:** Service template ([c6355bc](https://github.com/adrien2p/medusa-extender/commits/c6355bc76123672c750c2d26d8445fd66ef74647))
+
+### [1.6.2](https://github.com/adrien2p/medusa-extender/compare/v1.6.1...v1.6.2) (2022-04-18)
+
+
+### Features
+
+* **cli:** Add revert method to the migrate command ([cce22c0](https://github.com/adrien2p/medusa-extender/commits/cce22c0719faf17d0f5cdc95008f92397f829c4e))
+* **cli:** On init add watch script in order to be able to run with hot reload on changes ([a8e721f](https://github.com/adrien2p/medusa-extender/commits/a8e721fdf548edb8d41d56789dd77f1d4b67e69f))
+* **cli:** Update service template ([33a7dc9](https://github.com/adrien2p/medusa-extender/commits/33a7dc923e07a615655f8bdd9dcf3c650f3e5d3a))
+
+
+### Bug Fixes
+
+* **cli:** updateModuleImports method ([f4db805](https://github.com/adrien2p/medusa-extender/commits/f4db805d84db1ca6e8fcb9a4ff3c88c579adeedc))
+* **constants:** incorrect casing for draftOrderService in MEDUSA_RESOLVER_KEYS ([#79](https://github.com/adrien2p/medusa-extender/issues/79)) ([fbbbebd](https://github.com/adrien2p/medusa-extender/commits/fbbbebdaef5374deee09fffb37651d3730dc2d77))
+
 ### [1.6.1](https://github.com/adrien2p/medusa-extender/compare/v1.6.0...v1.6.1) (2022-03-21)
 
 

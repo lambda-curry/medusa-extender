@@ -409,7 +409,7 @@ does not take that in count.
 To fix that problem, you can extend the underlying validator to add the constraint on your custom
 field and make medusa aware about it.
 
-Let see and example
+let see an example
 
 
 ```typescript
@@ -429,6 +429,36 @@ But without doing anything else, medusa will handle it through the underlying
 handler for the creation but will now be aware of that field and therefor
 will take care of saving it. Otherwise, you will end up with an error thrown by the
 validator to tell you that this fields is not recognised.
+
+### @Subscriber
+
+Allow you to register new subscriber. The subscribers are built through the container
+but not registered as part of the container.
+
+let see an example
+
+
+```typescript
+import { Subscriber } from 'medusa-extender';
+import { ProductService, EventBusService } from "@medusajs/medusa/dist/services";
+
+@Subscriber()
+class OrderSubscriber {
+    private readonly eventBusService: EventBusService;
+
+    constructor({ eventBusService }: { eventBusService: EventBusService }) {
+        this.eventBusService = eventBusService;
+        this.eventBusService.subscribe(
+          ProductService.Events.CREATED,
+          this.handleProductCreation
+        );
+    }
+    
+    private async handleProductCreation(): Promise<void> {
+        console.log('I have been called after a product has been placed.')
+    }
+}
+```
 
 ### @Module
 

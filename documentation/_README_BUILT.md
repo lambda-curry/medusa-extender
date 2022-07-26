@@ -72,6 +72,7 @@ decorators approach to increase the DX and full typings support for easier devel
 		* [@Middleware](#middleware)
 		* [@Router](#router)
 		* [@Validator](#validator)
+		* [@Subscriber](#subscriber)
 		* [@Module](#module)
 		* [@Module (Dynamic module)](#module-dynamic-module)
 		* [@OnMedusaEntityEvent](#onmedusaentityevent)
@@ -113,7 +114,7 @@ Depending on your situation, pick the right getting started section.
 
 In that case, you must already have scaffold a new medusa store project. If that's not the case you can [follow the tutorial here](https://docs.medusajs.com/quickstart/quick-start).
 
-Run the following command in your terminal (The last version is 1.6.1)
+Run the following command in your terminal (The last version is 1.7.1)
 
 ```bash
 npm install medusa-extender
@@ -266,20 +267,26 @@ The result will be the generation of the module component at `src/modules/myModu
 #### Config
 
 In order to be flexible you can specify complement path to the migration files
-in your `medusa-config.js` file using the `cliMigrationsDirs` config.
+in your `medusa-config.js` file using the `cli_migration_dirs` config.
 
 It can be useful when you have installed some external modules that contains migrations.
 In that case, you can specify the relative paths and globs to the plugin/shareable module migrations.
 
 Let see an example
 
+> NOTE: For the older version of the extender, the config is `cliMigrationsDirs` that is now 
+> deprecated. If you set both `cliMigrationsDirs` and `cli_migration_dirs` then the last one
+> will be taken into account.
+
+
 ```javascript
 modules.exports = {
     /* ... */
     projectConfig: {
-        /* ... */
-        cliMigrationsDirs: ['node_modules/external-module/dist/**/*.migration.js']
-        /* ... */
+        cli_migration_dirs: [
+            'node_modules/external-module/dist/**/*.migration.js',
+            'dist/**/*.migration.js'
+        ]
     }
     /* ... */
 }
@@ -288,10 +295,11 @@ modules.exports = {
 #### Options
 
 
-| Name     | Alias | Description                                  |
-|----------|-------|----------------------------------------------|
-| `--run`  | `-r`  | Run migrations up method.                    |
-| `--show` | `-s`  | Show all applied and non applied migrations. |
+| Name       | Alias | Description                                  |
+|------------|-------|----------------------------------------------|
+| `--run`    | `-r`  | Run migrations up method.                    |
+| `--revert` | `-u`  | Revert the last migrations.                  |
+| `--show`   | `-s`  | Show all applied and non applied migrations. |
 
 
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/cloudy.png)](#full-code-api-mag)
@@ -725,7 +733,7 @@ does not take that in count.
 To fix that problem, you can extend the underlying validator to add the constraint on your custom
 field and make medusa aware about it.
 
-Let see and example
+let see an example
 
 
 ```typescript
@@ -745,6 +753,36 @@ But without doing anything else, medusa will handle it through the underlying
 handler for the creation but will now be aware of that field and therefor
 will take care of saving it. Otherwise, you will end up with an error thrown by the
 validator to tell you that this fields is not recognised.
+
+### @Subscriber
+
+Allow you to register new subscriber. The subscribers are built through the container
+but not registered as part of the container.
+
+let see an example
+
+
+```typescript
+import { Subscriber } from 'medusa-extender';
+import { ProductService, EventBusService } from "@medusajs/medusa/dist/services";
+
+@Subscriber()
+class OrderSubscriber {
+    private readonly eventBusService: EventBusService;
+
+    constructor({ eventBusService }: { eventBusService: EventBusService }) {
+        this.eventBusService = eventBusService;
+        this.eventBusService.subscribe(
+          ProductService.Events.CREATED,
+          this.handleProductCreation
+        );
+    }
+    
+    private async handleProductCreation(): Promise<void> {
+        console.log('I have been called after a product has been placed.')
+    }
+}
+```
 
 ### @Module
 
@@ -1073,6 +1111,10 @@ For more information about the configuration, you can have a look at the [docume
 
 ## Multi-tenancy
 
+> With the extender, it is possible by default to build multi vendor, multi tenant
+> applications. This module, only provide a specific approach for specific cases and does not
+> mean that it is not something you can do without that module.
+
 As part of the extender, you can choose to use a multi-tenancy architecture or a single-tenancy architecture depending
 on your needs.
 
@@ -1088,9 +1130,21 @@ Here is the expected config
 ```json
 interface MultiTenancyOptions {
     enable: boolean;
-    tenantCodeResolver: (req: MedusaRequest) => string;
+	tenant_code_resolver: (req: MedusaRequest) => string;
+	tenants: {
+		code: string;
+		database_config: {
+			database_type: string;
+			database_url: string;
+			database_database: string;
+			database_extra: Record<string, unknown>;
+		};
+	}[];
 }
 ```
+
+> This module is a dynamic module, which means, that it will only be imported and resolved
+> if the it has been enabled in the config as shown above.
 
 so your `medusa-config.js` will looks like
 
@@ -1099,14 +1153,25 @@ const config = {
     /* ... */
     multiTenancy: {
         enable: true,
-        tenantCodeResolver: (req) => req.headers['x-tenant']
+        tenant_code_resolver: (req: MedusaRequest) => "" /* Here you can grab the property on which the tenant code is stored */,
+        tenants: [{
+            code: "your-tenant-code",
+            database_config: {
+                database_type: 'tenant-database-type',
+                database_url: 'tenant-database-url',
+                database_database: 'tenant-database-name',
+                database_extra: {}
+            },
+        }],
     },
     /* ... */
 };
 ```
 
-Ant hat's it, you can now run your server and play around your multi-tenancy
+Ant that's it, you can now run your server and play around your multi-tenancy
 architecture.
+Each tenant will only access the data from the database that has been specified for that
+tenant.
 
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/cloudy.png)](#resources)
 

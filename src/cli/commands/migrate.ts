@@ -1,41 +1,38 @@
 import { createConnection } from 'typeorm';
 import { getConfigFile } from 'medusa-core-utils/dist';
 import { normalize, resolve } from 'path';
-import { MultiTenancyOptions } from '../../modules/multi-tenancy/types';
 
-/**
- * Run the migrations using the medusa-config.js config.
- * @param run
- * @param show
- */
 type ConfigModule = {
 	projectConfig: {
 		database_type: string;
 		database_url: string;
 		database_database: string;
 		database_extra: Record<string, string>;
+		cli_migration_dirs?: string[];
+		/**
+		 * @deprecated in favor of cli_migration_dirs
+		 */
 		cliMigrationsDirs?: string[];
 	};
-	multiTenancy?: MultiTenancyOptions;
 };
 
-export async function migrate({ run, show }): Promise<void> {
+/**
+ * Run the migrations using the medusa-config.js config.
+ * @param run
+ * @param revert
+ * @param show
+ */
+export async function migrate({ run, revert, show }): Promise<void> {
 	const { configModule } = getConfigFile(process.cwd(), `medusa-config`) as { configModule: ConfigModule };
+	const configMigrationsDirs =
+		configModule.projectConfig.cli_migration_dirs ?? configModule.projectConfig.cliMigrationsDirs;
 
 	let uniqMigrationDirs = new Set<string>();
-	if (configModule.projectConfig?.cliMigrationsDirs?.length) {
-		uniqMigrationDirs = new Set(configModule.projectConfig.cliMigrationsDirs);
+	if (configMigrationsDirs?.length) {
+		uniqMigrationDirs = new Set(configMigrationsDirs);
 	}
 
-	const migrationDirs = [
-		...new Set([
-			...uniqMigrationDirs,
-			'src/**/*.migration.js',
-			'src/**/migrations/*.js',
-			'dist/**/*.migration.js',
-			'dist/**/migrations/*.js',
-		]),
-	].map((dir) => {
+	const migrationDirs = [...uniqMigrationDirs].map((dir) => {
 		return normalize(resolve(process.cwd(), dir));
 	});
 
@@ -50,6 +47,9 @@ export async function migrate({ run, show }): Promise<void> {
 
 	if (run) {
 		await connection.runMigrations();
+		await connection.close();
+	} else if (revert) {
+		await connection.undoLastMigration({ transaction: 'all' });
 		await connection.close();
 	} else if (show) {
 		await connection.showMigrations();

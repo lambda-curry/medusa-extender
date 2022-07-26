@@ -2,18 +2,18 @@ import loaders from '@medusajs/medusa/dist/loaders';
 import { getConfigFile } from 'medusa-core-utils/dist';
 import * as getEndpoints from 'express-list-endpoints';
 import { Express } from 'express';
-import { AwilixContainer } from 'awilix';
-import { Logger, Type } from './core';
+import { Logger, MedusaContainer, Type } from './core';
 import {
 	adminApiLoader,
+	customApiLoader,
 	databaseLoader,
-	migrationsLoader,
 	modulesLoader,
 	overrideEntitiesLoader,
 	overrideRepositoriesLoader,
 	pluginsLoadersAndListeners,
 	servicesLoader,
 	storeApiLoader,
+	subscribersLoader,
 	validatorsLoader,
 } from './loaders';
 import { loadMonitoringModule, MonitoringOptions } from './modules/monitoring';
@@ -44,7 +44,7 @@ export class Medusa {
 	/**
 	 * @param modules The modules to load into medusa
 	 */
-	public async load(modules: Type[]): Promise<AwilixContainer> {
+	public async load(modules: Type[]): Promise<MedusaContainer> {
 		const { configModule } = getConfigFile(this.#rootDir, 'medusa-config') as {
 			configModule: {
 				monitoring: MonitoringOptions;
@@ -58,6 +58,11 @@ export class Medusa {
 		await validatorsLoader(moduleComponentsOptions.get('validator') ?? []);
 		await overrideEntitiesLoader(moduleComponentsOptions.get('entity') ?? []);
 		await overrideRepositoriesLoader(moduleComponentsOptions.get('repository') ?? []);
+		await customApiLoader(
+			this.#express,
+			moduleComponentsOptions.get('middleware') ?? [],
+			moduleComponentsOptions.get('router') ?? []
+		);
 		await adminApiLoader(
 			this.#express,
 			moduleComponentsOptions.get('middleware') ?? [],
@@ -70,18 +75,18 @@ export class Medusa {
 		);
 		await databaseLoader(
 			moduleComponentsOptions.get('entity') ?? [],
-			moduleComponentsOptions.get('repository') ?? []
+			moduleComponentsOptions.get('repository') ?? [],
+			moduleComponentsOptions.get('migration') ?? []
 		);
 		await pluginsLoadersAndListeners(this.#express);
 		await servicesLoader(moduleComponentsOptions.get('service') ?? []);
+		await subscribersLoader(moduleComponentsOptions.get('subscriber') ?? []);
 
-		const { container, dbConnection } = await loaders({
+		const { container } = await loaders({
 			isTest: process.env.NODE_ENV === 'test',
 			directory: this.#rootDir,
 			expressApp: this.#express,
 		});
-
-		await migrationsLoader(moduleComponentsOptions.get('migration') ?? [], dbConnection);
 
 		const endPoints = getEndpoints(this.#express);
 		for (const endPoint of endPoints) {
@@ -91,6 +96,6 @@ export class Medusa {
 		}
 		logger.flush();
 
-		return container as unknown as AwilixContainer;
+		return container as any;
 	}
 }

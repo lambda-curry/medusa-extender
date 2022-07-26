@@ -16,8 +16,8 @@
 
 ### ConfigModule
 
-Ƭ **ConfigModule**: `Record`<`string`, `unknown`\> & { `multiTenancy?`: [`MultiTenancyOptions`](../interfaces/modules_multi_tenancy_types.MultiTenancyOptions.md) ; `projectConfig`: { `database_logging?`: `LoggerOptions`  }  }
+Ƭ **ConfigModule**: `Record`<`string`, `unknown`\> & { `multi_tenancy?`: [`MultiTenancyOptions`](../interfaces/modules_multi_tenancy_types.MultiTenancyOptions.md) ; `projectConfig`: { `database_logging?`: `LoggerOptions`  }  }
 
 #### Defined in
 
-[src/modules/multi-tenancy/types.ts:4](https://github.com/adrien2p/medusa-extender/blob/2db47f5/src/modules/multi-tenancy/types.ts#L4)
+[src/modules/multi-tenancy/types.ts:4](https://github.com/adrien2p/medusa-extender/blob/624a76f/src/modules/multi-tenancy/types.ts#L4)

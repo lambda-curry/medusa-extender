@@ -71,6 +71,7 @@ decorators approach to increase the DX and full typings support for easier devel
 		* [@Middleware](https://adrien2p.github.io/medusa-extender/#/?id=middleware)
 		* [@Router](https://adrien2p.github.io/medusa-extender/#/?id=router)
 		* [@Validator](https://adrien2p.github.io/medusa-extender/#/?id=validator)
+		* [@Subscriber](https://adrien2p.github.io/medusa-extender/#/?id=subscriber)
 		* [@Module](https://adrien2p.github.io/medusa-extender/#/?id=module)
 		* [@Module (Dynamic module)](https://adrien2p.github.io/medusa-extender/#/?id=module-dynamic-module)
 		* [@OnMedusaEntityEvent](https://adrien2p.github.io/medusa-extender/#/?id=onmedusaentityevent)
@@ -109,7 +110,7 @@ Depending on your situation, pick the right getting started section.
 
 In that case, you must already have scaffold a new medusa store project. If that's not the case you can [follow the tutorial here](https://docs.medusajs.com/quickstart/quick-start).
 
-Run the following command in your terminal (The last version is 1.5.5)
+Run the following command in your terminal
 
 ```bash
 npm install medusa-extender

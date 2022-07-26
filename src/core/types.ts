@@ -2,13 +2,15 @@ import { NextFunction, Request, Response } from 'express';
 import { AwilixContainer, LifetimeType } from 'awilix';
 import { MigrationInterface } from 'typeorm';
 
+export type MedusaContainer = AwilixContainer & {
+	registerAdd: <T>(name: string, registration: T) => MedusaContainer;
+};
+
 export interface Type<T = unknown> extends Function {
 	new (...args: unknown[]): T;
 }
 
 export type Constructor<T> = new (...args: unknown[]) => T;
-
-export type MedusaCustomContainer = AwilixContainer & { registerAdd: (...args: unknown[]) => void };
 
 /**
  * Components that does not required any other options that Type.
@@ -20,7 +22,8 @@ export type InjectableComponentTypes =
 	| 'service'
 	| 'migration'
 	| 'router'
-	| 'middleware';
+	| 'middleware'
+	| 'subscriber';
 
 /**
  * Defines the injection options for entities.
@@ -89,6 +92,11 @@ export type ValidatorInjectionOptions<TOverride = unknown> = {
 };
 
 /**
+ * Defines the injection options for subscribers.
+ */
+export type SubscriberInjectionOptions = Record<string, unknown>;
+
+/**
  * Defines the injection options for routes.
  */
 export type ModuleInjectionOptions<T = unknown> = {
@@ -124,6 +132,8 @@ export type GetInjectableOption<TComponentType extends InjectableComponentTypes 
 		? MiddlewareInjectionOptions
 		: TComponentType extends Extract<InjectableComponentTypes, 'validator'>
 		? ValidatorInjectionOptions
+		: TComponentType extends Extract<InjectableComponentTypes, 'subscriber'>
+		? SubscriberInjectionOptions
 		: never) & {
 		type: InjectableComponentTypes;
 		metatype: TComponentType extends 'middleware' ? Type<MedusaMiddleware> : Type;
@@ -138,9 +148,9 @@ export type GetInjectableOptions<TComponentType extends InjectableComponentTypes
 /**
  * Medusa request extended.
  */
-export type MedusaRequest<T = unknown, Cradle extends Record<string, unknown> = Record<string, unknown>> = Request & {
-	scope: AwilixContainer<Cradle & T>;
-	container: AwilixContainer<Cradle & T>;
+export type MedusaRequest = Request & {
+	scope: AwilixContainer;
+	container: AwilixContainer;
 };
 
 /**
@@ -175,8 +185,8 @@ export interface MedusaMiddleware {
  * @interface
  * Describe a dynamic module which resolve its import dynamically.
  */
-export interface MedusaDynamicModule {
-	forRoot<T>(configModule: T): Promise<ModuleInjectionOptions>;
+export interface MedusaDynamicModule<T = unknown> {
+	forRoot(configModule: T): Promise<ModuleInjectionOptions>;
 }
 
 /**

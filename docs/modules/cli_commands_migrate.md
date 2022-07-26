@@ -14,6 +14,8 @@
 
 ▸ **migrate**(`__namedParameters`): `Promise`<`void`\>
 
+Run the migrations using the medusa-config.js config.
+
 #### Parameters
 
 | Name | Type |
@@ -26,4 +28,4 @@
 
 #### Defined in
 
-[src/cli/commands/migrate.ts:22](https://github.com/adrien2p/medusa-extender/blob/2db47f5/src/cli/commands/migrate.ts#L22)
+[src/cli/commands/migrate.ts:25](https://github.com/adrien2p/medusa-extender/blob/624a76f/src/cli/commands/migrate.ts#L25)

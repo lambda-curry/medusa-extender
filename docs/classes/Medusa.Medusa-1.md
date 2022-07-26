@@ -36,7 +36,7 @@ Load medusa and apply all components
 
 #### Defined in
 
-[src/Medusa.ts:39](https://github.com/adrien2p/medusa-extender/blob/2db47f5/src/Medusa.ts#L39)
+[src/Medusa.ts:39](https://github.com/adrien2p/medusa-extender/blob/624a76f/src/Medusa.ts#L39)
 
 ## Properties
 
@@ -46,7 +46,7 @@ Load medusa and apply all components
 
 #### Defined in
 
-[src/Medusa.ts:32](https://github.com/adrien2p/medusa-extender/blob/2db47f5/src/Medusa.ts#L32)
+[src/Medusa.ts:32](https://github.com/adrien2p/medusa-extender/blob/624a76f/src/Medusa.ts#L32)
 
 ___
 
@@ -56,13 +56,13 @@ ___
 
 #### Defined in
 
-[src/Medusa.ts:33](https://github.com/adrien2p/medusa-extender/blob/2db47f5/src/Medusa.ts#L33)
+[src/Medusa.ts:33](https://github.com/adrien2p/medusa-extender/blob/624a76f/src/Medusa.ts#L33)
 
 ## Methods
 
 ### load
 
-▸ **load**(`modules`): `Promise`<`AwilixContainer`<`any`\>\>
+▸ **load**(`modules`): `Promise`<[`MedusaContainer`](../modules/core_types.md#medusacontainer)\>
 
 #### Parameters
 
@@ -72,8 +72,8 @@ ___
 
 #### Returns
 
-`Promise`<`AwilixContainer`<`any`\>\>
+`Promise`<[`MedusaContainer`](../modules/core_types.md#medusacontainer)\>
 
 #### Defined in
 
-[src/Medusa.ts:47](https://github.com/adrien2p/medusa-extender/blob/2db47f5/src/Medusa.ts#L47)
+[src/Medusa.ts:47](https://github.com/adrien2p/medusa-extender/blob/624a76f/src/Medusa.ts#L47)

@@ -17,7 +17,7 @@
 - [MEDUSA\_RESOLVER\_KEYS](core.md#medusa_resolver_keys)
 - [MODULE\_KEY](core.md#module_key)
 - [MedusaAuthenticatedRequest](core.md#medusaauthenticatedrequest)
-- [MedusaCustomContainer](core.md#medusacustomcontainer)
+- [MedusaContainer](core.md#medusacontainer)
 - [MedusaDynamicModule](core.md#medusadynamicmodule)
 - [MedusaMiddleware](core.md#medusamiddleware)
 - [MedusaRequest](core.md#medusarequest)
@@ -31,6 +31,7 @@
 - [RouterInjectionOptions](core.md#routerinjectionoptions)
 - [RoutesInjectionRouterConfiguration](core.md#routesinjectionrouterconfiguration)
 - [ServiceInjectableOptions](core.md#serviceinjectableoptions)
+- [SubscriberInjectionOptions](core.md#subscriberinjectionoptions)
 - [Type](core.md#type)
 - [ValidatorInjectionOptions](core.md#validatorinjectionoptions)
 - [attachOrReplaceEntitySubscriber](core.md#attachorreplaceentitysubscriber)
@@ -111,9 +112,9 @@ Re-exports [MedusaAuthenticatedRequest](core_types.md#medusaauthenticatedrequest
 
 ___
 
-### MedusaCustomContainer
+### MedusaContainer
 
-Re-exports [MedusaCustomContainer](core_types.md#medusacustomcontainer)
+Re-exports [MedusaContainer](core_types.md#medusacontainer)
 
 ___
 
@@ -192,6 +193,12 @@ ___
 ### ServiceInjectableOptions
 
 Re-exports [ServiceInjectableOptions](core_types.md#serviceinjectableoptions)
+
+___
+
+### SubscriberInjectionOptions
+
+Re-exports [SubscriberInjectionOptions](core_types.md#subscriberinjectionoptions)
 
 ___
 

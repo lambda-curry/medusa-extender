@@ -13,7 +13,7 @@
 - [InjectableComponentTypes](loaders.md#injectablecomponenttypes)
 - [InjectableOptions](loaders.md#injectableoptions)
 - [MedusaAuthenticatedRequest](loaders.md#medusaauthenticatedrequest)
-- [MedusaCustomContainer](loaders.md#medusacustomcontainer)
+- [MedusaContainer](loaders.md#medusacontainer)
 - [MedusaDynamicModule](loaders.md#medusadynamicmodule)
 - [MedusaMiddleware](loaders.md#medusamiddleware)
 - [MedusaRequest](loaders.md#medusarequest)
@@ -27,10 +27,12 @@
 - [RouterInjectionOptions](loaders.md#routerinjectionoptions)
 - [RoutesInjectionRouterConfiguration](loaders.md#routesinjectionrouterconfiguration)
 - [ServiceInjectableOptions](loaders.md#serviceinjectableoptions)
+- [SubscriberInjectionOptions](loaders.md#subscriberinjectionoptions)
 - [Type](loaders.md#type)
 - [ValidatorInjectionOptions](loaders.md#validatorinjectionoptions)
 - [adminApiLoader](loaders.md#adminapiloader)
 - [attachOrReplaceEntitySubscriber](loaders.md#attachorreplaceentitysubscriber)
+- [customApiLoader](loaders.md#customapiloader)
 - [databaseLoader](loaders.md#databaseloader)
 - [entitiesLoader](loaders.md#entitiesloader)
 - [lowerCaseFirst](loaders.md#lowercasefirst)
@@ -47,6 +49,7 @@
 - [repositoryMixin](loaders.md#repositorymixin)
 - [servicesLoader](loaders.md#servicesloader)
 - [storeApiLoader](loaders.md#storeapiloader)
+- [subscribersLoader](loaders.md#subscribersloader)
 - [upperCaseFirst](loaders.md#uppercasefirst)
 - [validatorsLoader](loaders.md#validatorsloader)
 
@@ -94,9 +97,9 @@ Re-exports [MedusaAuthenticatedRequest](core_types.md#medusaauthenticatedrequest
 
 ___
 
-### MedusaCustomContainer
+### MedusaContainer
 
-Re-exports [MedusaCustomContainer](core_types.md#medusacustomcontainer)
+Re-exports [MedusaContainer](core_types.md#medusacontainer)
 
 ___
 
@@ -178,6 +181,12 @@ Re-exports [ServiceInjectableOptions](core_types.md#serviceinjectableoptions)
 
 ___
 
+### SubscriberInjectionOptions
+
+Re-exports [SubscriberInjectionOptions](core_types.md#subscriberinjectionoptions)
+
+___
+
 ### Type
 
 Re-exports [Type](../interfaces/core_types.Type.md)
@@ -199,6 +208,12 @@ ___
 ### attachOrReplaceEntitySubscriber
 
 Re-exports [attachOrReplaceEntitySubscriber](core_utils.md#attachorreplaceentitysubscriber)
+
+___
+
+### customApiLoader
+
+Re-exports [customApiLoader](loaders_custom_api_loader.md#customapiloader)
 
 ___
 
@@ -295,6 +310,12 @@ ___
 ### storeApiLoader
 
 Re-exports [storeApiLoader](loaders_store_api_loader.md#storeapiloader)
+
+___
+
+### subscribersLoader
+
+Re-exports [subscribersLoader](loaders_subscribers_loader.md#subscribersloader)
 
 ___
 
